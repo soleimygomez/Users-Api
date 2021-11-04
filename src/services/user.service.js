@@ -4,12 +4,15 @@ const dbSequelize = require('../db/connection');
 //constants
 const todayDate = new Date().toLocaleString("es-CO", { timeZone: "America/Bogota" }).replace(/\P.+/, '').replace(/\A.+/, '');
    
-    
+    //__________________________________________________________________________//
+    //All User
    const getUserAll = async () => {
 
     try {
       let userRow = await dbSequelize.user.findAll({
-        attributes: ['idUser'],
+        attributes: ['idUser', 'email', 'name', 'lastName','status','isConfirmed',
+        'createdAt','registeredBy','Role_idRole','Client_idClient','Company_idCompany',
+        'Administrator_idAdministrator', 'updatedAt',],
       });
       if (userRow) {
         return { status: 200, message: "", data: userRow };
@@ -22,74 +25,140 @@ const todayDate = new Date().toLocaleString("es-CO", { timeZone: "America/Bogota
     }
   };
 
+
+  //__________________________________________________________________________//
+  //Create  USer
   const createUser = async (body) => {
-    
+   
   //NewUser
   const {  idUser,email,name, lastName,
-    status,isConfirmed,registeredBy,Role_idRole,
+    status,isConfirmed, createdAt,registeredBy,Role_idRole,
     Client_idClient,Company_idCompany,Administrator_idAdministrator,
     updatedAt
   }=body;
   
-  const newUser ={  idUser,email,name, lastName,
-    status,isConfirmed,registeredBy,Role_idRole,
+  
+  const existeUser = await dbSequelize.user.findOne({
+    where: {
+        name: body.name,
+        lastName: body.lastName,
+    }});
+
+    if (existeUser) {
+      return { status: 500, message: 'Ya existe ese usuario ' }
+      };
+    
+  try {
+    let newUser= await dbSequelize.user.create({
+    idUser,email,name, lastName,
+    status,isConfirmed, createdAt:todayDate,registeredBy,Role_idRole,
     Client_idClient,Company_idCompany,Administrator_idAdministrator,
     updatedAt
-  }
-  newUser.createdAt = todayDate;
-
-  try {
-    await pool.query('START TRANSACTION');
-    const userQuery = await pool.query('INSERT INTO User SET ?', [newUser]);
-    //Insert in user
-    await pool.query('COMMIT');
-
-    console.log("User insertado ",userQuery);
+    }) 
+    if(newUser){
+      console.log("User insertado ",newUser);
    
     return { status: 200, message: "El usuario ha sido registrado exitosamente." };
    
+    }
+     
   }
   catch (e) {
     console.log("E", e);
-    await pool.query('ROLLBACK');
+    
     return { status: 500, message: "Error interno del servidor. Por favor, intente más tarde." };
   }
 };
-  
-const updateUser = async (body)=>{
+
+  //__________________________________________________________________________//
+  //Update User
+const updateUser = async (body,id)=>{
   //NewUser
-  const {  idUser,email,name, lastName,
-    status,isConfirmed,registeredBy,Role_idRole,
+  const { email,name, lastName,
+    status,isConfirmed, createdAt,registeredBy,Role_idRole,
     Client_idClient,Company_idCompany,Administrator_idAdministrator,
     updatedAt
   }=body;
+   
+  
+
   try{
-  await pool.query('START TRANSACTION');
-
-  const userQuery = await pool.query('UPDATE User SET ? where idUser = ?', [body.idUser]);
-  return { status: 200, message: "El usuario ha sido actualizado exitosamente." };
-
+    const user = await dbSequelize.user.findOne({
+    attributes:[ 'idUser','email','name', 'lastName',
+      'status','isConfirmed', 'createdAt','registeredBy','Role_idRole',
+      'Client_idClient','Company_idCompany','Administrator_idAdministrator',
+      'updatedAt'],
+      where:{
+         idUser:id
+      }
+   });
+   if(user){
+        
+          await user.update({
+            email,name, lastName,
+            status,isConfirmed,registeredBy,Role_idRole,
+            Client_idClient,Company_idCompany,Administrator_idAdministrator,
+            updatedAt
+          })
+        
+        return { status: 200, message: "El usuario ha sido Actualizado exitosamente." ,user};
+   
+    } 
+     else {
+      return { status: 500, message: "No es posible Encontrar Ese Usuario." };
+      }
+    
   }
-  catch (e) {
-    console.log(e);
-    await pool.query('ROLLBACK');
-
-    return { status: 500, message: "Error interno del servidor. Por favor, intente más tarde." };
-
-  }
+  
+    catch (e) {
+      console.log(e);
+      return { status: 500, message: "Error interno del servidor." };
+    }
 };
-
-const deleteUser= async(userId)=>{
+//__________________________________________________________________________//
+  //Delete User
+const deleteUser= async(id)=>{
 
   try {
-    const userQuery = await pool.query('UPDATE User SET isDeleted = ? where idUser = ?', [userId]);
-    return { status: 200, message: { message: "El usuario ha sido eliminado exitosamente." } };
+    const userDelete = await dbSequelize.user.destroy({where:{
+       idUser:id
+    }});
+    return { status: 200, message: "El usuario ha sido Eliminado exitosamente." ,userDelete};
+   
   } catch (e) {
     console.log(e);
     return { status: 500, message: "Error interno del servidor." };
   }
 };
-  
+
+  //__________________________________________________________________________//
+  //Busscar User
+const FindByUser = async (id)=>{
+
+  try{
+    const user = await dbSequelize.user.findOne({
+    attributes:[ 'idUser','email','name', 'lastName',
+      'status','isConfirmed', 'createdAt','registeredBy','Role_idRole',
+      'Client_idClient','Company_idCompany','Administrator_idAdministrator',
+      'updatedAt'],
+      where:{
+         idUser:id
+      }
+   });
+   if(user){
+         return { status: 200, message: "El usuario ha Encontrado exitosamente." ,user};
+    } 
+     else {
+      return { status: 500, message: "No es posible Encontrar Ese Usuario." };
+      }
+    
+  }
+   catch (e) {
+      console.log(e);
+      return { status: 500, message: "Error interno del servidor." };
+    }
+};
+
   module.exports={
-     getUserAll,createUser,updateUser,deleteUser
+     getUserAll,createUser,updateUser,deleteUser,FindByUser
   }

@@ -3,7 +3,9 @@ const { querys } = require('../services/user.service');
 const {
   getUserAll,
   createUser,
-  updateUser, deleteUser
+  updateUser,
+  deleteUser,
+  FindByUser
 } = require('./../services/user.service');
 const { validationResult } = require('express-validator');
 
@@ -68,7 +70,7 @@ const createNewUser = async (req, res, next) => {
 
   try {
     const result = await createUser(req.body);
-    res.status(result.status).json({ message: result.message });
+    res.status(result.status).json(result);
   } catch (e) {
     res
       .status(500)
@@ -76,26 +78,31 @@ const createNewUser = async (req, res, next) => {
   }
 };
 
-const getUserById = async (req, res) => {
-  try {
-    const pool = await sequelize();
+const getUserById = async (req, res,next) => {
 
-    const result = await pool
-      .request()
-      .input('idUser', req.params.idUser)
-      .query(querys.getUserById);
-    return res.json(result.recordset[0]);
-  } catch (error) {
-    res.status(500);
-    res.send(error.message);
+  const {id}=req.params;
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    res.status(422).json({ message: errors.errors[0].msg });
+    return;
+  }
+  try {
+    const result = await FindByUser(id);
+    res.status(result.status).json(result);
+    res.json().data;
+  } catch (e) {
+    res
+      .status(500)
+      .json({ message: 'No es posible realizar el registro en este momento.' });
   }
 };
 
-const deleteUserById = async (req, res, next) => {
+const deletUser = async (req, res, next) => {
   try {
-    const { userId } = req.headers;
+    const { id } = req.params;
 
-    const result = await deleteUser(userId);
+    const result = await deleteUser(id);
     if (result.status === 200) {
       res.status(result.status).json(result.message);
     } else {
@@ -108,12 +115,9 @@ const deleteUserById = async (req, res, next) => {
   }
 };
 
-
-
-const updateUsersById = async (req, res, next) => {
+const updateUsers = async (req, res, next) => {
   //Variables
   const {
-    idUser,
     email,
     name,
     lastName,
@@ -128,6 +132,7 @@ const updateUsersById = async (req, res, next) => {
     updatedAt,
   } = req.body;
 
+  const { id } = req.params;
   // validating
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -137,7 +142,7 @@ const updateUsersById = async (req, res, next) => {
   }
 
   try {
-    const result = await updateUser(req.body);
+    const result = await updateUser(req.body, id);
     res.status(result.status).json({ message: result.message });
   } catch (e) {
     res
@@ -150,7 +155,6 @@ module.exports = {
   getUsers,
   createNewUser,
   getUserById,
-  deleteUserById,
-
-  updateUsersById,
+  deletUser,
+  updateUsers,
 };
