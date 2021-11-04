@@ -35,7 +35,8 @@ catch(error){
     console.error('No se es posible establecer conexion con la base de datos',error);
 }
  
-db.user = require('../model/userModel')(sequelize, Sequelize);
+db.user = require('../../models/user')(sequelize, Sequelize);
+db.role = require('../../models/role')(sequelize, Sequelize);
 
  
 

@@ -9,7 +9,6 @@
   },
   "author": "",
   "license": "ISC",
-  "description": "",
   "devDependencies": {
     "@babel/cli": "^7.16.0",
     "@babel/core": "^7.16.0",
@@ -28,6 +27,20 @@
     "faker": "^5.5.3",
     "mysql2": "^2.3.2",
     "router": "^1.3.5",
-    "sequelize": "^6.9.0"
-  }
+    "sequelize": "^6.9.0",
+    "sequelize-auto": "^0.8.5",
+    "sequelize-automate": "^1.2.2",
+    "sequelize-cli": "^6.3.0",
+    "sqlite3": "^5.0.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/soleimygomez/Users-Api.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/soleimygomez/Users-Api/issues"
+  },
+  "homepage": "https://github.com/soleimygomez/Users-Api#readme",
+  "description": ""
 }
