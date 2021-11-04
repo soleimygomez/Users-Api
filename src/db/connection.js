@@ -1,22 +1,24 @@
 const { Sequelize }=require('sequelize');
-var dotenv = require("dotenv");
+
+const dotenv = require("dotenv");
 dotenv.config();
 
-
 const sequelize = new Sequelize(
-  'avanzodb_pr', 'admin', 'avanzo2019!',
+  process.env.DATABASE,
+  process.env.USER_NAME,
+  process.env.PASSWORD,
   {
-    host: 'avanzopruebas.cdwxx4pbv9v7.us-east-2.rds.amazonaws.com',
-    port: 3306,
+    host: process.env.HOST,
+    port: process.env.PORT,
     dialect: 'mysql',
 
     pool: {
-      max: 5,
-      min: 1,
+      max: parseInt(process.env.MAX),
+      min: parseInt(process.env.MIN),
       require: undefined,
       idle: undefined
     },
-    
+
     log: function (str) {
       // do your own logging
       console.log("####################################################################11");
@@ -34,10 +36,10 @@ try{
 catch(error){
     console.error('No se es posible establecer conexion con la base de datos',error);
 }
- 
+
 db.user = require('../model/userModel')(sequelize, Sequelize);
 
- 
+
 
 
 module.exports= db;
