@@ -1,20 +1,20 @@
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('Role', {
-    idRole: {
+  return sequelize.define('Transaction', {
+    idTransaction: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       defaultValue: null
     },
-    priority: {
+    quantity: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
       autoIncrement: false,
       primaryKey: false,
       defaultValue: null
     },
-    roleName: {
+    transactionType: {
       type: DataTypes.STRING,
       allowNull: false,
       autoIncrement: false,
@@ -41,9 +41,16 @@ module.exports = function(sequelize, DataTypes) {
       autoIncrement: false,
       primaryKey: false,
       defaultValue: null
+    },
+    Account_idAccount: {
+      type: DataTypes.INTEGER(11),
+      allowNull: false,
+      autoIncrement: false,
+      primaryKey: false,
+      defaultValue: null
     }
   }, {
-    tableName: 'Role'
+    tableName: 'Transaction'
   });
   
 };

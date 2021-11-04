@@ -1,45 +1,57 @@
 module.exports = function(sequelize, DataTypes) {
-
-  return sequelize.define('User',
-   {
-    idUser: {
+  return sequelize.define('Emails', {
+    email_id: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       defaultValue: null
     },
-    email: {
+    email_subject: {
       type: DataTypes.STRING,
       allowNull: false,
       autoIncrement: false,
       primaryKey: false,
       defaultValue: null
     },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      autoIncrement: false,
-      primaryKey: false,
-      defaultValue: null
-    },
-    lastName: {
+    email_text: {
       type: DataTypes.STRING,
       allowNull: true,
       autoIncrement: false,
       primaryKey: false,
       defaultValue: null
     },
-    status: {
-      type: DataTypes.INTEGER(4),
-      allowNull: false,
+    email_template_name: {
+      type: DataTypes.STRING,
+      allowNull: true,
       autoIncrement: false,
       primaryKey: false,
       defaultValue: null
     },
-    isConfirmed: {
-      type: DataTypes.INTEGER(4),
-      allowNull: false,
+    email_attachment_name: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      autoIncrement: false,
+      primaryKey: false,
+      defaultValue: null
+    },
+    email_attachment_type: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      autoIncrement: false,
+      primaryKey: false,
+      defaultValue: null
+    },
+    email_path_file_to_compile: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      autoIncrement: false,
+      primaryKey: false,
+      defaultValue: null
+    },
+    email_user_data: {
+      type: DataTypes.JSON,
+      allowNull: true,
       autoIncrement: false,
       primaryKey: false,
       defaultValue: null
@@ -51,48 +63,12 @@ module.exports = function(sequelize, DataTypes) {
       primaryKey: false,
       defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
     },
-    registeredBy: {
-      type: DataTypes.INTEGER(11),
+    email_sent: {
+      type: DataTypes.BOOLEAN,
       allowNull: false,
       autoIncrement: false,
       primaryKey: false,
-      defaultValue: null
-    },
-    Role_idRole: {
-      type: DataTypes.INTEGER(11),
-      allowNull: false,
-      autoIncrement: false,
-      primaryKey: false,
-      defaultValue: null
-    },
-    Client_idClient: {
-      type: DataTypes.INTEGER(11),
-      allowNull: true,
-      autoIncrement: false,
-      primaryKey: false,
-      defaultValue: null, 
-      references: {
-        model: 'Client',
-        key: 'idClient'
-      },
-    },    
-    Company_idCompany: {
-      type: DataTypes.INTEGER(11),
-      allowNull: true,
-      autoIncrement: false,
-      primaryKey: false,
-      defaultValue: 1,
-      references: {
-        model: 'Company',
-        key: 'idCompany'
-      },
-    },
-    Administrator_idAdministrator: {
-      type: DataTypes.INTEGER(11),
-      allowNull: true,
-      autoIncrement: false,
-      primaryKey: false,
-      defaultValue: null
+      defaultValue: 1
     },
     updatedAt: {
       type: DataTypes.DATE,
@@ -102,8 +78,7 @@ module.exports = function(sequelize, DataTypes) {
       defaultValue: null
     }
   }, {
-    tableName: 'User'
+    tableName: 'Emails'
   });
-
   
 };

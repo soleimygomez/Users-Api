@@ -1,66 +1,57 @@
 module.exports = function(sequelize, DataTypes) {
-
-  return sequelize.define('User',
-   {
-    idUser: {
+  return sequelize.define('Codes', {
+    idCodes: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       defaultValue: null
     },
-    email: {
+    emailCode: {
       type: DataTypes.STRING,
       allowNull: false,
       autoIncrement: false,
       primaryKey: false,
       defaultValue: null
     },
-    name: {
+    phoneCode: {
       type: DataTypes.STRING,
       allowNull: false,
       autoIncrement: false,
       primaryKey: false,
       defaultValue: null
     },
-    lastName: {
+    sendTime: {
+      type: DataTypes.DATE,
+      allowNull: true,
+      autoIncrement: false,
+      primaryKey: false,
+      defaultValue: null
+    },
+    receiveTime: {
+      type: DataTypes.DATE,
+      allowNull: true,
+      autoIncrement: false,
+      primaryKey: false,
+      defaultValue: null
+    },
+    receiveIP: {
       type: DataTypes.STRING,
       allowNull: true,
       autoIncrement: false,
       primaryKey: false,
       defaultValue: null
     },
-    status: {
-      type: DataTypes.INTEGER(4),
-      allowNull: false,
+    numberEmailCode: {
+      type: DataTypes.STRING,
+      allowNull: true,
       autoIncrement: false,
       primaryKey: false,
       defaultValue: null
     },
-    isConfirmed: {
-      type: DataTypes.INTEGER(4),
-      allowNull: false,
-      autoIncrement: false,
-      primaryKey: false,
-      defaultValue: null
-    },
-    createdAt: {
-      type: 'TIMESTAMP',
-      allowNull: false,
-      autoIncrement: false,
-      primaryKey: false,
-      defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
-    },
-    registeredBy: {
-      type: DataTypes.INTEGER(11),
-      allowNull: false,
-      autoIncrement: false,
-      primaryKey: false,
-      defaultValue: null
-    },
-    Role_idRole: {
-      type: DataTypes.INTEGER(11),
-      allowNull: false,
+    numberPhoneCode: {
+      type: DataTypes.STRING,
+      allowNull: true,
       autoIncrement: false,
       primaryKey: false,
       defaultValue: null
@@ -70,29 +61,14 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true,
       autoIncrement: false,
       primaryKey: false,
-      defaultValue: null, 
-      references: {
-        model: 'Client',
-        key: 'idClient'
-      },
-    },    
-    Company_idCompany: {
-      type: DataTypes.INTEGER(11),
-      allowNull: true,
-      autoIncrement: false,
-      primaryKey: false,
-      defaultValue: 1,
-      references: {
-        model: 'Company',
-        key: 'idCompany'
-      },
-    },
-    Administrator_idAdministrator: {
-      type: DataTypes.INTEGER(11),
-      allowNull: true,
-      autoIncrement: false,
-      primaryKey: false,
       defaultValue: null
+    },
+    createdAt: {
+      type: 'TIMESTAMP',
+      allowNull: true,
+      autoIncrement: false,
+      primaryKey: false,
+      defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
     },
     updatedAt: {
       type: DataTypes.DATE,
@@ -100,10 +76,52 @@ module.exports = function(sequelize, DataTypes) {
       autoIncrement: false,
       primaryKey: false,
       defaultValue: null
+    },
+    code_userDocumentNumber: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      autoIncrement: false,
+      primaryKey: false,
+      defaultValue: null
+    },
+    code_hash: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      autoIncrement: false,
+      primaryKey: false,
+      defaultValue: null
+    },
+    code_state: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true,
+      autoIncrement: false,
+      primaryKey: false,
+      defaultValue: false
+    },
+    code_email: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      autoIncrement: false,
+      primaryKey: false,
+      defaultValue: null
+    },
+    code_phone: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      autoIncrement: false,
+      primaryKey: false,
+      defaultValue: null
+    },
+    code_jsonnetdata: {
+      type: DataTypes.JSON,
+      allowNull: true,
+      autoIncrement: false,
+      primaryKey: false,
+      defaultValue: null
     }
+    
   }, {
-    tableName: 'User'
+    tableName: 'Codes'
   });
-
   
 };

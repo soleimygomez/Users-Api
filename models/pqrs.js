@@ -1,44 +1,28 @@
-module.exports = function(sequelize, DataTypes) {
-
-  return sequelize.define('User',
-   {
-    idUser: {
+module.exports = function (sequelize, DataTypes) {
+  return sequelize.define('Pqrs', {
+    idPqrs: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       defaultValue: null
     },
-    email: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      autoIncrement: false,
-      primaryKey: false,
-      defaultValue: null
-    },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      autoIncrement: false,
-      primaryKey: false,
-      defaultValue: null
-    },
-    lastName: {
+    subject: {
       type: DataTypes.STRING,
       allowNull: true,
       autoIncrement: false,
       primaryKey: false,
       defaultValue: null
     },
-    status: {
-      type: DataTypes.INTEGER(4),
-      allowNull: false,
+    observation: {
+      type: DataTypes.STRING,
+      allowNull: true,
       autoIncrement: false,
       primaryKey: false,
       defaultValue: null
     },
-    isConfirmed: {
-      type: DataTypes.INTEGER(4),
+    PqrsState_idPqrsState: {
+      type: DataTypes.INTEGER(11),
       allowNull: false,
       autoIncrement: false,
       primaryKey: false,
@@ -58,36 +42,14 @@ module.exports = function(sequelize, DataTypes) {
       primaryKey: false,
       defaultValue: null
     },
-    Role_idRole: {
+    Client_idClient: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
       autoIncrement: false,
       primaryKey: false,
       defaultValue: null
     },
-    Client_idClient: {
-      type: DataTypes.INTEGER(11),
-      allowNull: true,
-      autoIncrement: false,
-      primaryKey: false,
-      defaultValue: null, 
-      references: {
-        model: 'Client',
-        key: 'idClient'
-      },
-    },    
-    Company_idCompany: {
-      type: DataTypes.INTEGER(11),
-      allowNull: true,
-      autoIncrement: false,
-      primaryKey: false,
-      defaultValue: 1,
-      references: {
-        model: 'Company',
-        key: 'idCompany'
-      },
-    },
-    Administrator_idAdministrator: {
+    User_idUser: {
       type: DataTypes.INTEGER(11),
       allowNull: true,
       autoIncrement: false,
@@ -101,9 +63,25 @@ module.exports = function(sequelize, DataTypes) {
       primaryKey: false,
       defaultValue: null
     }
-  }, {
-    tableName: 'User'
-  });
+    ,
+    requ_jsonfiles: {
+      type: DataTypes.JSON,
+      allowNull: true,
+      autoIncrement: false,
+      primaryKey: false,
+      defaultValue: null
+    },
 
-  
+
+
+  },
+    // { getterMethods: {
+    //   numberAccount() {
+    //     return accountNumber.aplit(-4)
+    //   }
+    // }}  , 
+    {
+      tableName: 'Pqrs'
+    });
+
 };

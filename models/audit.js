@@ -1,20 +1,20 @@
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('Role', {
-    idRole: {
+  return sequelize.define('Audit', {
+    idAudit: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       defaultValue: null
     },
-    priority: {
-      type: DataTypes.INTEGER(11),
+    params: {
+      type: DataTypes.STRING,
       allowNull: false,
       autoIncrement: false,
       primaryKey: false,
       defaultValue: null
     },
-    roleName: {
+    page: {
       type: DataTypes.STRING,
       allowNull: false,
       autoIncrement: false,
@@ -28,7 +28,7 @@ module.exports = function(sequelize, DataTypes) {
       primaryKey: false,
       defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
     },
-    registeredBy: {
+    User_idUser: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
       autoIncrement: false,
@@ -37,13 +37,13 @@ module.exports = function(sequelize, DataTypes) {
     },
     updatedAt: {
       type: DataTypes.DATE,
-      allowNull: false,
+      allowNull: true,
       autoIncrement: false,
       primaryKey: false,
       defaultValue: null
     }
   }, {
-    tableName: 'Role'
+    tableName: 'Audit'
   });
   
 };

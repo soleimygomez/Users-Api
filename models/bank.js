@@ -1,21 +1,35 @@
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('Role', {
-    idRole: {
+  return sequelize.define('Bank', {
+    idBank: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       defaultValue: null
     },
-    priority: {
-      type: DataTypes.INTEGER(11),
+    bankName: {
+      type: DataTypes.STRING,
       allowNull: false,
       autoIncrement: false,
       primaryKey: false,
       defaultValue: null
     },
-    roleName: {
+    bankCode: {
       type: DataTypes.STRING,
+      allowNull: false,
+      autoIncrement: false,
+      primaryKey: false,
+      defaultValue: null
+    },
+    isForOutlay: {
+      type: DataTypes.INTEGER(4),
+      allowNull: false,
+      autoIncrement: false,
+      primaryKey: false,
+      defaultValue: null
+    },
+    isWallet: {
+      type: DataTypes.INTEGER(4),
       allowNull: false,
       autoIncrement: false,
       primaryKey: false,
@@ -23,27 +37,20 @@ module.exports = function(sequelize, DataTypes) {
     },
     createdAt: {
       type: 'TIMESTAMP',
-      allowNull: false,
+      allowNull: true,
       autoIncrement: false,
       primaryKey: false,
       defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
     },
-    registeredBy: {
-      type: DataTypes.INTEGER(11),
-      allowNull: false,
-      autoIncrement: false,
-      primaryKey: false,
-      defaultValue: null
-    },
     updatedAt: {
       type: DataTypes.DATE,
-      allowNull: false,
+      allowNull: true,
       autoIncrement: false,
       primaryKey: false,
       defaultValue: null
     }
   }, {
-    tableName: 'Role'
+    tableName: 'Bank'
   });
   
 };

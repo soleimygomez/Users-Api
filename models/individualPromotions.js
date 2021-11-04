@@ -1,25 +1,39 @@
-module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('Role', {
-    idRole: {
+module.exports = function (sequelize, DataTypes) {
+  return sequelize.define('IndividualPromotions', {
+    inpr_id: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       defaultValue: null
     },
-    priority: {
-      type: DataTypes.INTEGER(11),
-      allowNull: false,
-      autoIncrement: false,
-      primaryKey: false,
-      defaultValue: null
-    },
-    roleName: {
+    inpr_document_number: {
       type: DataTypes.STRING,
       allowNull: false,
       autoIncrement: false,
       primaryKey: false,
       defaultValue: null
+    },
+    inpr_email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      autoIncrement: false,
+      primaryKey: false,
+      defaultValue: null
+    },
+    inpr_promotion: {
+      type: DataTypes.JSON,
+      allowNull: false,
+      autoIncrement: false,
+      primaryKey: false,
+      defaultValue: null
+    },
+    inpr_is_active: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true,
+      autoIncrement: false,
+      primaryKey: false,
+      defaultValue: 0
     },
     createdAt: {
       type: 'TIMESTAMP',
@@ -28,22 +42,17 @@ module.exports = function(sequelize, DataTypes) {
       primaryKey: false,
       defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
     },
-    registeredBy: {
-      type: DataTypes.INTEGER(11),
-      allowNull: false,
-      autoIncrement: false,
-      primaryKey: false,
-      defaultValue: null
-    },
     updatedAt: {
       type: DataTypes.DATE,
-      allowNull: false,
+      allowNull: true,
       autoIncrement: false,
       primaryKey: false,
       defaultValue: null
     }
-  }, {
-    tableName: 'Role'
-  });
-  
+
+  },
+    {
+      tableName: 'IndividualPromotions'
+    });
+
 };
