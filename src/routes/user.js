@@ -1,25 +1,26 @@
-const { Router } = require('express');
+const express = require('express');
+//const multer = require('multer');
+
+//Controllers
 const {
   getUsers,
   createNewUser,
   getUserById,
-  deleteUserById,
-  getTotalUsers,
-  updateUsersById,
+  deletUser,
+  updateUsers
+
 } = require('../controller/user.controller');
 
-const router = Router();
+const router = express.Router();
 
 router.get('/', getUsers);
 
 router.post('/create', createNewUser);
 
-router.get('/count', getTotalUsers);
-
 router.get('/:id', getUserById);
 
-router.delete('/:id', deleteUserById);
+router.delete('/:id', deletUser);
 
-router.put('/update/:id', updateUsersById);
+router.put('/update/:id', updateUsers);
 
 module.exports= router;
