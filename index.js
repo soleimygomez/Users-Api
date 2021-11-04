@@ -5,8 +5,8 @@ const { logErrors, errorHandler,boomErrorHandler } = require('./middlewares/erro
 const app=express();
 const port = 3001;
 
-app.use(express.json()); 
- 
+app.use(express.json());
+
 
 app.get('/',(req,res)=>{
     res.send('Server en Express');
@@ -14,14 +14,13 @@ app.get('/',(req,res)=>{
 
  routerApi(app);
  //Middleware
- 
+
 app.use(logErrors);
 app.use(boomErrorHandler);
 app.use(errorHandler);
 
 //en produccion no deben haber console.log
 app.listen(port,()=>{
-    console.log('puerto'+port);
+    console.log('puerto : '+port);
 })
 
- 
