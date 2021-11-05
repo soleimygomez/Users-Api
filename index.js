@@ -6,9 +6,10 @@ const app=express();
 const port = 3001;
 
 app.use(express.json());
+// app.use('/api/v1',router);
 
 
-app.get('/',(req,res)=>{
+app.get('/api/v1',(req,res)=>{
     res.send('Server en Express');
 })
 

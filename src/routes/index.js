@@ -1,11 +1,11 @@
 const express = require('express');
-const userRoutes=require('./user.routes');
+const userRoutes=require('./user.router');
 
 //definicion de Rutas
 function routerApi(app){
     const router=express.Router();
     app.use('/api/v1',router);
-    router.use('/user',userRoutes);
+    router.use('/users',userRoutes);
     // router.user('/rol',rolRoutes);
 }
 

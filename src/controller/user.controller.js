@@ -8,6 +8,9 @@ const {
 } = require('./../services/user.service');
 const { validationResult } = require('express-validator');
 
+
+const UserService = require('../services/user.service');
+const userService=new UserService();
 //***************************************************** */
 //*** Get  */
 //***************************************************** */
@@ -21,7 +24,8 @@ const getUsers = async (req, res, next) => {
     return;
   }
   try {
-    const result = await getUserAll();
+    const result = await UserService.find();
+    console.log(result);
     if (result.status === 200) {
       res.status(result.status).json(result.data);
     } else {
@@ -29,6 +33,7 @@ const getUsers = async (req, res, next) => {
     }
     next();
   } catch (e) {
+    console.log(e)
     res
       .status(500)
       .json('No es posible obtener la información en este momento.');
