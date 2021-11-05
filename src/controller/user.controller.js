@@ -9,8 +9,8 @@ const {
 const { validationResult } = require('express-validator');
 
 //***************************************************** */
- //*** Get  */ 
- //***************************************************** */
+//*** Get  */
+//***************************************************** */
 
 const getUsers = async (req, res, next) => {
   //Validate input
@@ -36,9 +36,9 @@ const getUsers = async (req, res, next) => {
 };
 
 
-const getUserById = async (req, res,next) => {
+const getUserById = async (req, res, next) => {
 
-  const {id}=req.params;
+  const { id } = req.params;
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
@@ -57,8 +57,10 @@ const getUserById = async (req, res,next) => {
 };
 
 //***************************************************** */
- //*** Post*/ 
- //***************************************************** */
+//*** Post*/
+//*** Post*/
+//*** Post*/
+//***************************************************** */
 
 const createNewUser = async (req, res, next) => {
   //variables
@@ -86,7 +88,7 @@ const createNewUser = async (req, res, next) => {
     res.status(422).json({ message: errors.errors[0].msg });
     return;
   }
-   
+
   try {
     const result = await createUser(req.body);
     res.status(result.status).json(result);
@@ -96,10 +98,12 @@ const createNewUser = async (req, res, next) => {
       .json({ message: 'No es posible realizar el registro en este momento.' });
   }
 };
- 
+
 //***************************************************** */
- //*** Put*/ 
- //***************************************************** */
+//*** Put*/
+//*** Put*/
+//*** Put*/
+//***************************************************** */
 
 const updateUsers = async (req, res, next) => {
   //Variables
@@ -138,8 +142,10 @@ const updateUsers = async (req, res, next) => {
 };
 
 //***************************************************** */
- //*** Delete*/ 
- //***************************************************** */
+//*** Delete*/
+//*** Delete*/
+//*** Delete*/
+//***************************************************** */
 
 const deletUser = async (req, res, next) => {
   try {
@@ -158,7 +164,7 @@ const deletUser = async (req, res, next) => {
   }
 };
 
- 
+
 
 module.exports = {
   getUsers,

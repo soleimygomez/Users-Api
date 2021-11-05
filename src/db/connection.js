@@ -4,7 +4,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const sequelize = new Sequelize(
-  process.env.DATABASE,
+  process.env.DATABASE_NAME,
   process.env.USER_NAME,
   process.env.PASSWORD,
   {
@@ -19,7 +19,7 @@ const sequelize = new Sequelize(
       idle: undefined
     },
 
-    log: function (str) {
+    logging: function (str) {
       // do your own logging
       console.log("####################################################################11");
       console.log(str);
